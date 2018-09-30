@@ -30,6 +30,8 @@ def main():
 
         # Game display
         screen.blit(background_image, (0, 0))
+        hero_image = pygame.image.load('images/hero.png').convert_alpha()
+        screen.blit(hero_image, (256, 240))
         pygame.display.update()
         clock.tick(60)
 
