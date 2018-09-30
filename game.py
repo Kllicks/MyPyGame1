@@ -1,8 +1,8 @@
 import pygame
 
 def main():
-    width = 500
-    height = 500
+    width = 512
+    height = 480
     blue_color = (97, 159, 182)
 
     pygame.init()
@@ -26,9 +26,10 @@ def main():
 
         # Draw background
         screen.fill(blue_color)
+        background_image = pygame.image.load('images/background.png').convert_alpha()
 
         # Game display
-
+        screen.blit(background_image, (0, 0))
         pygame.display.update()
         clock.tick(60)
 
