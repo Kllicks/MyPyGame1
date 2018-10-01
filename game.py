@@ -14,23 +14,23 @@ class Hero:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.speed_x = random.randint(-1, 1)
-        self.speed_y = random.randint(-1, 1)
+        self.speed_x = 0
+        self.speed_y = 0
         self.radius = 36
         self.image = pygame.image.load('images/hero.png').convert_alpha()
-        
+        # self.move = [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]
     
-    def update(self, width, height):
-        self.x += random.randint(-1, 1)
-        self.y += random.randint(-1, 1)
-        if self.x + self.radius > (width - self.radius):
-            self.speed_x = random.randint(-1 , 0)
-        if self.y + self.radius > (height - self.radius):
-            self.speed_y = random.randint(-1 , 0)
-        if self.x - self.radius < 0:
-            self.speed_x = random.randint(0 , 1)
-        if self.y - self.radius < 0:
-            self.speed_y = random.randint(0 , 1)
+    # def update(self, width, height):
+    #     self.x += random.randint(-1, 1)
+    #     self.y += random.randint(-1, 1)
+    #     if self.x + self.radius > (width - self.radius):
+    #         self.speed_x = random.randint(-1 , 0)
+    #     if self.y + self.radius > (height - self.radius):
+    #         self.speed_y = random.randint(-1 , 0)
+    #     if self.x - self.radius < 0:
+    #         self.speed_x = random.randint(0 , 1)
+    #     if self.y - self.radius < 0:
+    #         self.speed_y = random.randint(0 , 1)
 
 def main():
     width = 512
@@ -44,7 +44,6 @@ def main():
     hero = Hero(224, 208)
     # Game initialization
     background_image = pygame.image.load('images/background.png').convert_alpha()
-    # hero_image = pygame.image.load('images/hero.png').convert_alpha()
     hero.image 
     monster_image = pygame.image.load('images/monster.png').convert_alpha()
     monster_x = 36
@@ -54,7 +53,28 @@ def main():
         for event in pygame.event.get():
 
             # Event handling
-
+            if event.type == pygame.KEYDOWN:
+                # activate the cooresponding speeds
+                # when an arrow key is pressed down
+                if event.key == pygame.K_DOWN:
+                    hero.speed_y = 5
+                elif event.key == pygame.K_UP:
+                    hero.speed_y = -5
+                elif event.key == pygame.K_LEFT:
+                    hero.speed_x = -5
+                elif event.key == pygame.K_RIGHT:
+                    hero.speed_x = 5
+            if event.type == pygame.KEYUP:
+                # deactivate the cooresponding speeds
+                # when an arrow key is released
+                if event.key == pygame.K_DOWN:
+                    hero.speed_y = 0
+                elif event.key == pygame.K_UP:
+                    hero.speed_y = 0
+                elif event.key == pygame.K_LEFT:
+                    hero.speed_x = 0
+                elif event.key == pygame.K_RIGHT:
+                    hero.speed_x = 0
             if event.type == pygame.QUIT:
                 stop_game = True
 
@@ -62,7 +82,8 @@ def main():
         # Game logic
         monster_x += random.randint(-20, 20)
         monster_y += random.randint(-20,20)
-        hero.update(width, height)
+        # hero.update(width, height)
+        # hero.move
         if monster_x > width:
             monster_x = 0
         if monster_x < 0:
@@ -71,7 +92,7 @@ def main():
             monster_y = 0
         if monster_y < 0:
             monster_y = height
-
+        
         # Draw background
         screen.fill(blue_color)
 
